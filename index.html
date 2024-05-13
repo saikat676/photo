@@ -4,9 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="index.css">
+    
+    <style>
+             #container {
+    position: relative; /* Position the container relative to the document */
+    width: 600px; /* Set width for the container */
+    height: 300px; /* Set height for the container */
+    background-color: lightgray; /* Add background color for visualization */
+    overflow:hidden;
+    top:50px;
+    left:300px;
+
+  }
+  
+
+
+
+
+
+}
+
+    </style>
 </head>
 <body>
+    
+    <div id="container">
+    <img id="im" style="position:absolute;top:0px;left:50px;right:50px" width="600" height="300" src="images/dog_babu.jpg">
+    <input type="button" class="arrow-button left-arrow" id="rightbtn"></input>
+    <input type="button" class="arrow-button left-arrow" id="leftbtn"></input>
+    </div>
+    <script>
+        var i=0;
+        var arr=["dog_babu.jpg","kitty-cat-kitten-pet-45201.jpeg","flower.jpg"]
+        var rbt=document.getElementById("rightbtn");
+        var lbt=document.getElementById("leftbtn");
+        
+        
+        rbt.addEventListener("click",rchange)
+        lbt.addEventListener("click",lchange)
+        var im=document.getElementById("im")
+        im.addEventListener("drag",lchange)
+        
+        //sleep mode
+        async function sleep(time) { 
+       return new Promise((resolve) => setTimeout(resolve, time)); 
+             }
+             //sleep mode end
+
+//for left button change
+        async function rchange()
+        {       
+                if(i==arr.length-1)
+                      i=0;
+                else 
+                      i+=1;                               
+                let val=50;
+                while(val>-300)
+                {
+                    val-=10;
+                    im.style.left=val+"px";                   
+                    await sleep(5);  //to show the effect of move
+                }
+                               
+                im.src="images/"+arr[i];               
+                val=300;
+                while(val>50)
+                {
+                    val-=10;
+                    im.style.left=val+"px";
+                    await sleep(5);
+                }                              
+        }
+        
+//for right button change
+             async  function lchange(){       
+                if(i==0)
+                      i=arr.length-1;
+                else 
+                      i-=1;               
+                let val=50;
+                while(val<300)
+                {
+                    val+=10;
+                    im.style.left=val+"px";
+                    await sleep(10);
+                }               
+                im.src="images/"+arr[i];
+                val=-300;
+                while(val<50)
+                {
+                    val+=10;
+                    im.style.left=val+"px";
+                    await sleep(10);
+                }              
+        }
+    </script>
+    
     
 </body>
 </html>
